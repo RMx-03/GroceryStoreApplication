@@ -1,14 +1,8 @@
-import mysql.connector
-
-def get_all_products():
-
-    # connect to the database
-    conn = mysql.connector.connect(user='root', password='root',
-                                host='127.0.0.1',
-                                database='grocery_store')
+from sql_connection import get_sql_connection
+def get_all_products(connection):
 
     # for database operations
-    cursor = conn.cursor()
+    cursor = connection.cursor()
 
 
     query = ("SELECT products.product_id, products.name, products.uom_id, products.price_per_unit, uom.uom_name " 
@@ -27,8 +21,8 @@ def get_all_products():
             }
         )
 
-    conn.close()
     return response
 
 if __name__=='__main__':
-    print(get_all_products())
+    connection = get_sql_connection()
+    print(get_all_products(connection))
