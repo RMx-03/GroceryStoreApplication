@@ -33,6 +33,16 @@ def insert_product():
     })
     return add_cors_headers(response)
 
+@app.route('/deleteProduct', methods=['POST'])
+def delete_product():
+    request_payload = request.get_json()
+    product_id = request_payload['product_id']
+    products_dao.delete_product(connection, product_id)
+    response = jsonify({
+        'product_id': product_id
+    })
+    return add_cors_headers(response)
+
 if __name__ == "__main__":
     print() 
     app.run(port=5000)
